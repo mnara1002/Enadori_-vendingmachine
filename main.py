@@ -1,6 +1,32 @@
 #coding:utf8
-import screen_drawing
-
 if __name__ == '__main__':
-    sd = screen_drawing.screen()
-    sd.create_screen()
+    end = 1#無限ループ終了フラグ
+    vending_wallet = 0;#投入された合計金額を記録する
+    user_input = ""#ユーザーからの入力を受け取る
+
+    while end:#自販機プログラムの始まり。購入を止めるコマンドが入力されるまで無限ループで待機する。
+        print("コインを入れてください(^_^)\n飲み物は200円です。")
+        print("現在の投入金額：%d円") % vending_wallet
+        print("1:飲み物を買う\t2:100円入れる\t3:購入を止める")
+
+        user_input = raw_input()#ユーザーからの入力を受け付ける※str型で受け取る
+
+        if user_input == "2":#ユーザーが「2」を入力した場合
+            vending_wallet +=100#自販機内部で100円ずつ記録していく
+            print("100円入れました！\n")
+
+        elif user_input == "1":#ユーザーが「1」を入力した場合
+            if vending_wallet >= 200:#今まで投入された金額が200円以上の場合
+                print("お疲れ様です！これでも飲んで元気出してください( ^^) _旦~~\n")#飲み物を出す
+                vending_wallet -= 200#自販機内部で記録している投入金額から-200円する
+            else:#今まで投入された金額が200円未満の場合
+                print("お金が足りません...\n")#投入金額が足りないことを知らせる
+
+        elif user_input == "3":#ユーザーが「3」を入力した場合
+            print("購入を終了します。%d円のお釣りです\n") % vending_wallet #投入金額の残金をユーザーに返す
+            end = 0#自販機プログラムのループから抜け出すフラグを設定する
+        else:#ユーザーが「1~3」以外の入力をした場合
+            print("入力が誤っています。1～3のいずれかを入力してください\n")#入力が誤っていることを伝える
+            end = 1
+
+
