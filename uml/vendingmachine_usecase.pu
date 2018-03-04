@@ -1,0 +1,22 @@
+@startuml{plantuml_usecase_sample.png}
+title <size:18>エナドリ自販機</size>
+left to right direction
+
+actor :社畜ちゃん: as user
+actor :エナドリ自販機: as enadori
+
+package "エナドリ自販機"  {
+    usecase (100円投入\n[拡張点]\n10円,50円,500円,1000円) as input
+    user -- (お金を入れる)
+    (お金を入れる) --> input
+    input --> (投入金額合計)
+    (投入金額合計) <.. enadori
+    user -- (購入ボタンを押す)
+    (購入ボタンを押す) --> enadori
+    (飲み物を出す) <-- (投入金額合計):合計が200円以上なら飲み物を出す
+    (エラーメッセージを出す) <-- (投入金額合計):合計が200円未満なら金額が足りない旨のメッセージを出す
+    user <-- (飲み物を出す)
+    user <-- (エラーメッセージを出す)
+}
+user - (エナドリ)
+@enduml
